@@ -1,0 +1,28 @@
+@baseUrl = http://localhost:8080
+
+### Endpoints disponibles
+# POST /api/auth/register
+# POST /api/auth/login
+#
+# Notes:
+# - Le register crée un utilisateur avec le rôle par défaut USER.
+# - Le login renvoie un JWT Bearer + les infos utilisateur.
+
+### Register un nouvel utilisateur
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "nom": "Jean Dupont",
+  "email": "jean.dupont@example.com",
+  "password": "password123"
+}
+
+### Login utilisateur
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "jean.dupont@example.com",
+  "password": "password123"
+}
