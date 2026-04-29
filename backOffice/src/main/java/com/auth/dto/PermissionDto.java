@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class PermissionDto {
 
-    private String idPermission;
+    private Long idPermission;
     private String nom;
 }

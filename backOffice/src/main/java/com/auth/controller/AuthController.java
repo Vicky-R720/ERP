@@ -88,7 +88,7 @@ public class AuthController {
         return permissions.stream()
                 .map(permission -> {
                     PermissionDto dto = new PermissionDto();
-                    dto.setIdPermission(permission.getId_Permission());
+                    dto.setIdPermission(permission.getIdPermission());
                     dto.setNom(permission.getNom());
                     return dto;
                 })

@@ -4,12 +4,12 @@ import lombok.Data;
 
 
 @Entity
-@Table(name = "Permission")
+@Table(name = "permission")
 @Data
 public class Permission {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String Id_Permission;
+    private Long idPermission;
     private String Nom;
 }

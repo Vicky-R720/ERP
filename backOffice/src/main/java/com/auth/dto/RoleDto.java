@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class RoleDto {
 
-    private Integer idRoles;
+    private Long idRoles;
     private String nom;
     private Set<PermissionDto> permissions;
 }
