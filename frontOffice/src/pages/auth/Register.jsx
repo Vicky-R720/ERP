@@ -3,12 +3,41 @@ import { useState } from 'react'
 import { Card } from '../../components/ui/Card.jsx'
 import { Input } from '../../components/ui/Input.jsx'
 import { Button } from '../../components/ui/Button.jsx'
+import axios from "axios";
 
 export function Register() {
-  const navigate = useNavigate()
+
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate();
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await axios.post(
+        "http://localhost:8080/api/auth/register", {
+        nom: name,
+        email,
+        password
+      }
+      )
+      navigate("/auth/login");
+    } catch (error) {
+
+      console.log(error);
+      console.log(error.response?.data);
+      console.log(error.response?.status);
+      alert("Erreur inscription");
+
+    } finally {
+
+      setLoading(false);
+
+    }
+  }
 
   return (
     <div className="auth">
@@ -18,10 +47,7 @@ export function Register() {
 
         <form
           className="form"
-          onSubmit={(e) => {
-            e.preventDefault()
-            navigate('/auth/login')
-          }}
+          onSubmit={handleRegister}
         >
           <label className="label">
             Name
@@ -46,7 +72,9 @@ export function Register() {
             />
           </label>
 
-          <Button type="submit">Create account</Button>
+          <Button type="submit" disabled={loading}>
+            {loading ? 'Creating...' : 'Create account'}
+          </Button>
 
           <div className="auth__links">
             <Link to="/auth/login">Back to login</Link>
