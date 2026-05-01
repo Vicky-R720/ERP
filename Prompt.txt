@@ -1,0 +1,127 @@
+You are a world-class AI specialized in generating comprehensive web design prompts. Your task is to transform a user's raw idea into a perfectly crafted, detailed prompt for an AI website builder.
+
+The final output MUST be in English, start directly with the prompt, and contain no introductory remarks.
+
+---
+**User's idea:**
+I need a template with all the components I might need, like login pages, registration, a home page, and tables. I don't know everything I'll need, can you list them for me?
+
+**User's detailed list:**
+1. Essential Pages (ERP frontend)
+    *   **Auth (mandatory)**: Login, Register, Forgot Password (optional but useful), Reset Password (optional)
+    *   **Base app**: Dashboard (homepage after login), User Profile, Settings (profile + password)
+    *   **Administration**: Users list (user management), Roles management, Permissions management
+    *   **ERP Dashboard**: Global statistics, Graphs (sales, stock, etc.), KPIs (revenue, active users)
+    *   **Business Modules (classic ERP)**:
+        *   **Products**: Product list, Add product, Edit product, Product details
+        *   **Stock**: Stock entry, Stock exit, Stock history, Stockout alerts
+        *   **Customers**: Customer list, Add customer, Customer history
+        *   **Sales**: Create order, Order list, Invoices
+        *   **Purchases (if advanced ERP)**: Suppliers, Purchase orders, Receipts
+        *   **Accounting (advanced)**: Revenue, Expenses, Reports
+        *   **HR (optional)**: Employees, Leave, Payroll
+2. Reusable UI Components (VERY IMPORTANT)
+    *   **Layout**: Sidebar (left menu), Footer (optional)
+    *   **Base UI**: Button, Input, Select, Modal, Table, Card, Badge, Loader (spinner), Alert / Toast
+    *   **ERP Table (very important)**: Pagination, Search bar, Filter, Sort, Actions (edit / delete / view)
+
+---
+**Transformed prompt:**
+
+"Create a sophisticated, fully-featured ERP (Enterprise Resource Planning) frontend template designed for modern business operations. The template should serve as a comprehensive starting point for any business requiring robust internal management tools, with a strong emphasis on user experience, modularity, and a premium aesthetic.
+
+**Technical Stack & Architecture:**
+React.js with Next.js for server-side rendering and routing, leveraging TypeScript for type safety. Tailwind CSS for utility-first styling, ensuring responsive design and rapid development. State management with React Query for efficient data fetching and caching. Component architecture should be atomic, with clear separation of concerns, easy reusability, and maintainable structure. Implement a mobile-first responsive design approach across all components and pages. Optimize for SEO and performance with Next.js best practices (lazy loading, image optimization, code splitting). Backend integration with Supabase for authentication, real-time database, and serverless functions (for user management, permissions, and business logic where applicable).
+
+**Art Direction & Visuals:**
+The design should be modern, minimalist, and premium, inspired by interfaces like Linear, Vercel, and Apple's clean aesthetic. Incorporate subtle Glassmorphism effects with frosted glass blur and luminous layers for cards and modals. Utilize premium deep gradients (e.g., deep blues, subtle purples, charcoal grays) for backgrounds and accent elements. Employ soft glow and light accents strategically to highlight interactive elements and data visualizations. Textures should include a subtle noise/grain overlay for depth without distraction. UI elements should feature gentle depth through soft, diffused shadows.
+**Typography:** Use "Geist Sans" or "Inter" for all text, ensuring readability and a modern feel.
+**Animations & Micro-interactions:** Implement subtle, fluid animations for page transitions, component states (hovers, clicks), and data updates. Micro-interactions should enhance user feedback without being intrusive.
+
+**User Experience (UX):**
+Ensure a clean, intuitive, and highly functional user experience.
+**Navigation:** A clear, persistent sidebar for primary navigation, organized logically by business modules.
+**Visual Hierarchy:** Strong visual hierarchy guiding users to essential information and actions.
+**CTAs:** Clearly visible and contextual call-to-action buttons.
+**Accessibility:** WCAG 2.1 AA compliant, providing an inclusive experience for all users.
+**User Flows:** Optimized user flows for common ERP tasks (e.g., adding a product, creating an order, managing users).
+**Spacing:** Harmonious spacing (using a consistent spacing scale) between elements and sections to enhance readability and reduce cognitive load.
+
+**Content & Key Features (Modular and Reusable):**
+
+**1. Authentication Module:**
+*   **Login Page:** Clean, secure login form with email/password, "remember me" checkbox.
+*   **Register Page:** User-friendly registration form with essential fields.
+*   **Forgot Password Page:** Simple email input for password recovery.
+*   **Reset Password Page:** Secure form for setting a new password.
+
+**2. Core Application Pages:**
+*   **Dashboard Page (Post-Login Home):** High-level overview with key KPIs, recent activities, and actionable insights. Sections for:
+    *   Global Statistics
+    *   Interactive Charts (Sales trends, Stock levels, User activity)
+    *   Key Performance Indicators (Revenue, Active Users, Order Value)
+    *   Recent Activity/Notifications feed.
+*   **User Profile Page:** Editable user details, avatar upload, and personal settings.
+*   **Settings Page:** Comprehensive settings for profile, password updates, preferences, notifications.
+
+**3. Administration Module:**
+*   **User Management List:** Table displaying all users, with search, filter, sort, and actions (edit, disable, delete).
+*   **Role Management:** Interface to define and assign user roles (e.g., Admin, Editor, Viewer).
+*   **Permissions Management:** Granular control over what roles can access and perform.
+
+**4. Business Modules (Each with List, Add, Edit, Detail Views):**
+*   **Products Module:**
+    *   **Product List:** Table with product name, SKU, price, stock, and actions.
+    *   **Add Product Form:** Comprehensive form for new product entry (name, description, price, categories, images).
+    *   **Edit Product Form:** Pre-filled form to modify product details.
+    *   **Product Detail Page:** Full information, images, related data.
+*   **Stock Module:**
+    *   **Stock Entry Form:** Record new stock arrivals.
+    *   **Stock Exit Form:** Record stock departures.
+    *   **Stock History:** Table of all stock movements.
+    *   **Stockout Alerts:** Dashboard widget/notification system for low stock.
+*   **Customers Module:**
+    *   **Customer List:** Table with customer details, contact info, and actions.
+    *   **Add Customer Form:** Form for new customer onboarding.
+    *   **Customer History:** View past orders, interactions.
+*   **Sales Module:**
+    *   **Create Order Form:** Multi-step form for creating new sales orders.
+    *   **Order List:** Table of all orders with status, date, customer, total.
+    *   **Invoice Generation/List:** View and generate invoices for orders.
+*   **Purchases Module (Advanced):**
+    *   **Suppliers List:** Management of supplier information.
+    *   **Purchase Orders:** Create, track, and manage purchase orders.
+    *   **Receipts:** Record goods received against purchase orders.
+*   **Accounting Module (Advanced):**
+    *   **Revenue Tracking:** Dashboard and lists for income.
+    *   **Expense Tracking:** Dashboard and lists for expenditures.
+    *   **Reports:** Financial reports (e.g., P&L, balance sheet summary).
+*   **HR Module (Optional):**
+    *   **Employees List:** Management of employee data.
+    *   **Leave Management:** System for requesting and approving leave.
+    *   **Payroll Summary:** Overview of payroll data.
+
+**5. Reusable UI Components:**
+*   **Layout Components:**
+    *   **Sidebar:** Responsive, collapsible navigation menu with nested items and active state indicators.
+    *   **Header/Navbar:** Global search, user profile dropdown, notifications.
+    *   **Footer:** Optional, for copyright or system version.
+*   **Base UI Elements:**
+    *   **Button:** Primary, secondary, ghost, icon-only, disabled states.
+    *   **Input:** Text, email, password, number, date, search fields with clear focus states.
+    *   **Select:** Dropdown menus with search and multi-select capability.
+    *   **Modal/Dialog:** For confirmations, forms, and alerts with customizable content.
+    *   **Card:** Versatile container for information, data, or forms.
+    *   **Badge:** Status indicators, categories.
+    *   **Loader (Spinner):** Elegant loading animation for data fetching.
+    *   **Alert/Toast Notifications:** For success, error, warning messages (top-right display).
+*   **ERP-Specific Table Component:**
+    *   Highly functional data table with:
+        *   **Pagination:** Controlled pagination for large datasets.
+        *   **Search Bar:** Global and column-specific search functionality.
+        *   **Filter Options:** Dynamic filters based on column data types.
+        *   **Sorting:** Ascending/descending sorting for all relevant columns.
+        *   **Action Column:** Dropdown or individual buttons for `Edit`, `Delete`, `View Details` within each row.
+        *   **Bulk Actions:** Checkbox selection for multiple rows to perform actions.
+
+The goal is to deliver a template that embodies a professional, efficient, and visually stunning foundation for any business's internal management system."
