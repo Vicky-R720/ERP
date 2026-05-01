@@ -4,8 +4,8 @@ import { Card } from '../../components/ui/Card.jsx'
 import { Input } from '../../components/ui/Input.jsx'
 import { Button } from '../../components/ui/Button.jsx'
 import { Link } from "react-router-dom";
-import axios from "axios";
-
+import { api } from "../../app/api.jsx";
+import { useAuth } from "../../app/auth.jsx";
 export function Login() {
 
   const [email, setEmail] = useState('')
@@ -14,28 +14,28 @@ export function Login() {
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate();
   const from = location.state?.from?.pathname ?? '/'
+ const { setSession } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/auth/login",
-        {
-          email,
-          password
-        }
-      );
+      const response = await api.post("/auth/login", {
+        email,
+        password
+      });
 
-      localStorage.setItem("token", response.data.token);
-      window.dispatchEvent(new Event("storage"));
+      setSession({
+        token: response.data.token,
+        user: response.data.user, // important pour la Topbar
+      });
       alert("Login reussi")
 
       console.log(localStorage.getItem("token"));
       
       navigate(from, {replace: true});
-      console.log("NAVIGATE OK");
+      
     } catch (error) {
       console.log(error);
       alert("Erreur login")

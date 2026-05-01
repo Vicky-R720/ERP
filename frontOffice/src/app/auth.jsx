@@ -1,43 +1,73 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useMemo, useState } from 'react'
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
-const AuthContext = createContext(null)
+const AuthContext = createContext(null);
 
-const STORAGE_KEY = 'templ.erp.auth'
+const TOKEN_KEY = "token";
+const USER_KEY = "auth.user";
+
+function readJson(key) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY)
-      if (!raw) return null
-      const parsed = JSON.parse(raw)
-      return parsed?.user ?? null
-    } catch {
-      return null
-    }
-  })
+  const [token, setToken] = useState(() => localStorage.getItem(TOKEN_KEY));
+  const [user, setUser] = useState(() => readJson(USER_KEY));
+
+  useEffect(() => {
+    const syncFromStorage = () => {
+      setToken(localStorage.getItem(TOKEN_KEY));
+      setUser(readJson(USER_KEY));
+    };
+
+    // “storage” ne se déclenche pas toujours dans le même onglet
+    window.addEventListener("storage", syncFromStorage);
+    window.addEventListener("auth:changed", syncFromStorage);
+
+    return () => {
+      window.removeEventListener("storage", syncFromStorage);
+      window.removeEventListener("auth:changed", syncFromStorage);
+    };
+  }, []);
 
   const value = useMemo(() => {
     return {
+      token,
       user,
-      isAuthenticated: Boolean(user),
-      login: async ({ email }) => {
-        const nextUser = { id: 'demo', name: email?.split('@')[0] || 'User', email }
-        setUser(nextUser)
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({ user: nextUser }))
-      },
-      logout: () => {
-        setUser(null)
-        localStorage.removeItem(STORAGE_KEY)
-      },
-    }
-  }, [user])
+      isAuthenticated: Boolean(token),
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+      setSession: ({ token, user }) => {
+        if (token) localStorage.setItem(TOKEN_KEY, token);
+        else localStorage.removeItem(TOKEN_KEY);
+
+        if (user) localStorage.setItem(USER_KEY, JSON.stringify(user));
+        else localStorage.removeItem(USER_KEY);
+
+        window.dispatchEvent(new Event("auth:changed"));
+        setToken(token ?? null);
+        setUser(user ?? null);
+      },
+
+      logout: () => {
+        localStorage.removeItem(TOKEN_KEY);
+        localStorage.removeItem(USER_KEY);
+        window.dispatchEvent(new Event("auth:changed"));
+        setToken(null);
+        setUser(null);
+      },
+    };
+  }, [token, user]);
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {
-  const ctx = useContext(AuthContext)
-  if (!ctx) throw new Error('useAuth must be used within AuthProvider')
-  return ctx
+  const ctx = useContext(AuthContext);
+  if (!ctx) throw new Error("useAuth must be used within AuthProvider");
+  return ctx;
 }
